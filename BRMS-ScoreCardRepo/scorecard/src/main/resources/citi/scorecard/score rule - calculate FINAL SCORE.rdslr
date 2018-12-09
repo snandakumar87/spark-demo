@@ -1,0 +1,14 @@
+package citi.scorecard;
+
+import java.lang.Number;
+
+rule "score rule - calculate FINAL SCORE"
+	dialect "mvel"
+	salience -30
+	ruleflow-group "finalscore"
+	when
+		>sc : ScoreCard( semgtId : segmentId)
+	then
+		>sc.calculateScore(  );
+		>sc.calculateResaonCode(  );
+end

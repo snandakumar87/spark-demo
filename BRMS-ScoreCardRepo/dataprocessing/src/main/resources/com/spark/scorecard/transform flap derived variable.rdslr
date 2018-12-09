@@ -1,0 +1,27 @@
+package com.spark.scorecard;
+
+import java.lang.Number;
+import com.spark.scorecard.BalanceFLAP;
+import com.spark.scorecard.CardholderMasterCHD;
+import com.spark.scorecard.CreditBureautimeSeriesCB;
+import com.spark.scorecard.CreditdataAggregation;
+import com.spark.scorecard.DerviedVariables;
+import com.spark.scorecard.ScoreFormula;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.lang.Math;
+import java.lang.Integer;
+
+rule "transform flap derived variable"
+	dialect "mvel"
+	salience 60
+	when
+		>creditdataAggregation : CreditdataAggregation( ders : derivedVariables, flapdata : flaps)
+		>flap : BalanceFLAP( ) from flapdata
+	then
+		>transformFlapdDeriVariable(ders,flap);
+end

@@ -1,0 +1,27 @@
+package com.spark.scorecard;
+
+import java.lang.Number;
+import com.spark.scorecard.BalanceFLAP;
+import com.spark.scorecard.CardholderMasterCHD;
+import com.spark.scorecard.CreditBureautimeSeriesCB;
+import com.spark.scorecard.CreditdataAggregation;
+import com.spark.scorecard.DerviedVariables;
+import com.spark.scorecard.ScoreFormula;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.lang.Math;
+import java.lang.Integer;
+
+rule "transform CB0_ATTR013 values"
+	dialect "mvel"
+	salience 90
+	when
+		>creditdataAggregation : CreditdataAggregation( size : cbs.size() > 0 )
+	then
+		>populateCB0ATTR013( creditdataAggregation );
+		>transformCBAllotherVariables(creditdataAggregation.derivedVariables);
+end

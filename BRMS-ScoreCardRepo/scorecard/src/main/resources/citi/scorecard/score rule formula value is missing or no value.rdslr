@@ -1,0 +1,20 @@
+package citi.scorecard;
+
+import java.lang.Number;
+import java.lang.Number;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.lang.Math;
+
+rule "score rule formula value is missing or no value"
+	dialect "mvel"
+	ruleflow-group "xvalue"
+	when
+		>sc : ScoreCard( semgtId : segmentId)
+		>scData : ScoreCardData( segmentId == semgtId , formulaNameFromScordCard : formula, xvalue : missValue)
+		thers is no formula value exists on the input
+	then
+		apply Scoring Transformation for the given formula value of Transx withMissingFormula
+end

@@ -1,0 +1,42 @@
+package citi.scorecard;
+
+function java.util.Date currentTime(){
+  // The content of this method is Java
+  return new java.util.Date();
+}
+
+function void applyScoringTransformtion(citi.scorecard.ScoreCard sc,citi.scorecard.ScoreCardData scData, String formulaNameFromScordCard , double xvalue){
+  
+  sc.getValueX().put(formulaNameFromScordCard, xvalue);
+  sc.getValueC().put(formulaNameFromScordCard, xvalue );
+  sc.getValueA().put(formulaNameFromScordCard, xvalue * scData.getCoef());
+  sc.getValueDiff().put(formulaNameFromScordCard, new ScoreReasonCode(formulaNameFromScordCard , scData.getReason() , ( ( xvalue - scData.getMean() ) * scData.getCoef() )));
+}
+function void applyScoringTransformtionForTransxwithMissingFormula(citi.scorecard.ScoreCard sc,citi.scorecard.ScoreCardData scData, String formulaNameFromScordCard , double xvalue){
+
+    if(scData.getTransx()==null){
+		    sc.getValueX().put(formulaNameFromScordCard,xvalue);
+		    sc.getValueC().put(formulaNameFromScordCard,xvalue );
+		    sc.getValueA().put(formulaNameFromScordCard,xvalue * scData.getCoef());
+		    sc.getValueDiff().put(formulaNameFromScordCard, new ScoreReasonCode( formulaNameFromScordCard , scData.getReason() , ( ( xvalue - scData.getMean() ) * scData.getCoef() )));
+		}else{
+		    double xSqartvalue = Math.sqrt(xvalue);
+		    sc.getValueX().put(formulaNameFromScordCard,xvalue);
+		    sc.getValueC().put(formulaNameFromScordCard,xSqartvalue );
+		    sc.getValueA().put(formulaNameFromScordCard,xSqartvalue * scData.getCoef());
+		    sc.getValueDiff().put(formulaNameFromScordCard, new ScoreReasonCode( formulaNameFromScordCard , scData.getReason() , ( ( xSqartvalue - scData.getMean() ) * scData.getCoef() )));
+		}
+}
+function void applyScoringTransformtionForTransx(citi.scorecard.ScoreCard sc,citi.scorecard.ScoreCardData scData, String formulaNameFromScordCard ){
+
+        Double xval = sc.getValueX().get(formulaNameFromScordCard);
+		//System.out.println("value xout-- " + xval);
+		if(xval != null){
+		//System.out.println("value x-- " + xval);
+		double xvalue = Math.sqrt(xval.doubleValue());
+		//System.out.println("value x1-- " + xvalue);
+		sc.getValueC().put(formulaNameFromScordCard,xvalue );
+		sc.getValueA().put(formulaNameFromScordCard,xvalue * scData.getCoef());
+		sc.getValueDiff().put(formulaNameFromScordCard, new ScoreReasonCode( formulaNameFromScordCard ,scData.getReason() , ( ( xvalue - scData.getMean() ) * scData.getCoef() )));
+		}
+}

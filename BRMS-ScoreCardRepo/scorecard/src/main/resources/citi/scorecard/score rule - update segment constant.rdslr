@@ -1,0 +1,13 @@
+package citi.scorecard;
+
+import java.lang.Number;
+
+rule "score rule - update segment constant"
+	dialect "mvel"
+	ruleflow-group "segmentconstant"
+	when
+		>sc : ScoreCard( semgtId : segmentId)
+		>SegmentConsant( segmentId == semgtId , segmtCont : segmentConstant)
+	then
+		>sc.setSegmentConstant( segmtCont );
+end

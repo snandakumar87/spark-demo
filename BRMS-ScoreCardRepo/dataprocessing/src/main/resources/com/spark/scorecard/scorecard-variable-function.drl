@@ -1,0 +1,650 @@
+package com.spark.scorecard;
+
+import com.spark.scorecard.BalanceFLAP
+import com.spark.scorecard.CardholderMasterCHD
+
+import com.spark.scorecard.CreditBureautimeSeriesCB
+
+import com.spark.scorecard.CreditdataAggregation
+import com.spark.scorecard.DerviedVariables
+import com.spark.scorecard.ScoreFormula
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+
+import java.util.Map;  
+import java.util.Map.Entry;
+import java.lang.Math;
+import java.lang.Integer;
+
+function transformCBAttr(DerviedVariables derviedVariables , String key , String value){
+
+	CBVariables cbVariables = derviedVariables.getCbVariables();
+ 	if(key.equals("ATTR001")){
+ 		cbVariables.setATTR001(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR001(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR002")){
+ 		cbVariables.setATTR002(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR002(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR003")){
+ 		cbVariables.setATTR003(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR003(Integer.parseInt(value));
+ 		
+ 	}else if(key.equals("ATTR008")){
+ 		cbVariables.setATTR008(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR008(Integer.parseInt(value));
+ 		
+ 	}else if(key.equals("ATTR011")){
+ 		cbVariables.setATTR011(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR011(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR012")){
+ 		cbVariables.setATTR012(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR012(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR013")){
+ 		cbVariables.setATTR013(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR013(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR017")){
+ 		cbVariables.setATTR017(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR017(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR020")){
+ 		cbVariables.setATTR020(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR020(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR021")){
+ 		cbVariables.setATTR021(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR021(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR022")){
+ 		cbVariables.setATTR002(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR002(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR023")){
+ 		cbVariables.setATTR023(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR023(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR024")){
+ 		cbVariables.setATTR024(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR024(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR025")){
+ 		cbVariables.setATTR025(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR025(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR061")){
+ 		cbVariables.setATTR061(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR061(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR065")){
+ 		cbVariables.setATTR065(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR065(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR066")){
+ 		cbVariables.setATTR066(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR066(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR106")){
+ 		cbVariables.setATTR106(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR106(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR107")){
+ 		cbVariables.setATTR107(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR107(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR110")){
+ 		cbVariables.setATTR110(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR110(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR111")){
+ 		cbVariables.setATTR111(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR111(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR116")){
+ 		cbVariables.setATTR116(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR116(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR183")){
+ 		cbVariables.setATTR183(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR183(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR260")){
+ 		cbVariables.setATTR260(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR260(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR306")){
+ 		cbVariables.setATTR306(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR306(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR307")){
+ 		cbVariables.setATTR307(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR307(Integer.parseInt(value));
+ 	}else if(key.equals("ATTR380")){
+ 		cbVariables.setATTR380(Integer.parseInt(value));
+ 		derviedVariables.setCB0_ATTR380(Integer.parseInt(value));
+ 	}
+ 	
+ 	int Ts0_ATTR001 = cbVariables.getATTR001();
+ 	int Ts0_ATTR107 = cbVariables.getATTR107();
+ 	int Ts0_ATTR116 = cbVariables.getATTR116();
+ 	
+ 	if( Ts0_ATTR001 > 990){
+        derviedVariables.setTs0_ATTR001(0) ;
+    }else{
+    	derviedVariables.setTs0_ATTR001(Ts0_ATTR001) ;
+    }
+    if (Ts0_ATTR107 > 990){
+        derviedVariables.setTs0_ATTR107(0);
+	}else{
+		derviedVariables.setTs0_ATTR107(Ts0_ATTR107);
+	}
+    if (Ts0_ATTR116 > 990){
+        derviedVariables.setTs0_ATTR116( 0);
+    }else{
+     derviedVariables.setTs0_ATTR116( Ts0_ATTR116);
+    }
+
+}
+function populateCB0ATTR013( CreditdataAggregation creditdataAggregation ) {
+	
+	List<CreditBureautimeSeriesCB> cbs = creditdataAggregation.getCbs();
+	
+	int cb_ts[ ] = creditdataAggregation.getDerivedVariables().getCb_ts();
+	
+	for( int i = 0 ; i < cbs.size() ; i++  ){
+		CreditBureautimeSeriesCB cb = cbs.get(i);
+		int value = cb.getATTR013();
+		if( value > 9999990 ){
+			cb_ts [ i ] = 0;
+		}else{
+			cb_ts[ i ] = value;
+		}
+		
+		}
+		//System.out.println("fun" + value);
+		
+}
+	
+function transformChdDeriVariable( DerviedVariables derviedVariables , CardholderMasterCHD chdData )
+{
+
+ 	double CHDAP_CURR_CTD_CASH_PRIN = chdData.getCHDAP_CURR_CTD_CASH_PRIN();
+ 	double CHDAP_OPEN_CYC_CASH_INTSC = chdData.getCHDAP_OPEN_CYC_CASH_INTSC();
+ 	double CHDAP_OPEN_CYC_CASH_PRIN = chdData.getCHDAP_OPEN_CYC_CASH_PRIN();
+ 	double CHDAP_UNPD_CASH_ITEM_AM   = chdData.getCHDAP_UNPD_CASH_ITEM_AM();
+    double CHD_CTD_AMT_ITEM_CHG      = chdData.getCHD_CTD_AMT_ITEM_CHG();
+    
+    double ACCTCASH = CHDAP_CURR_CTD_CASH_PRIN  + CHDAP_OPEN_CYC_CASH_INTSC + CHDAP_OPEN_CYC_CASH_PRIN  + CHDAP_UNPD_CASH_ITEM_AM   + CHD_CTD_AMT_ITEM_CHG ;
+    
+    derviedVariables.setACCTCASH( ACCTCASH) ;
+    derviedVariables.setACCOUNT_ID(chdData.getACCOUNT_ID());
+    derviedVariables.setCHD_EXTERNAL_STATUS(chdData.getCHD_EXTERNAL_STATUS());
+    int CASHUSER =  (  ( ACCTCASH > 0 ) ?  1 : 0 ) ;
+    //int CASHUSER = 0 ;
+    derviedVariables.setCASHUSER( CASHUSER ) ;
+    int buckets = 13 ; 
+    int[] dts = chdData.getStmtDate() ;
+    //System.out.println("datae length" + dts.length );
+    
+    int[] dates = new int[ dts.length ] ;
+   for( int i = 0 ; i < dts.length ; i++)
+    {
+    	if( dts [ i ] < 1000000) {
+    	    if ( dts[ i ] < 490000 ) {
+    			dates[i] = dts[i] + 20000000 ; 	
+    		} else {
+    			dates[i] = dts[i] + 19000000 ; 	
+    		}
+    	} else {
+    		dates[i] = dts[i] ;
+    	}
+    }
+    // System.out.println("datas length" + dates.length );
+    double bal [] = chdData.getBal();
+    double pay []  = chdData.getPay();
+    double due [] = chdData.getDue();
+   
+  
+    derviedVariables.setBals(bal);
+    derviedVariables.setStmt_dates(dates);
+    derviedVariables.setPay(pay);
+    derviedVariables.setDue(due);
+    
+    for (int k = 1;  k < 13 ;  k++ ){
+        if ( dates[k] == 0 ) {
+            buckets = k - 1;
+            
+        }
+    }
+    
+    if ( buckets < 13 ) {
+        for ( int j = buckets + 1 ;  j <= 13 ; j++ ) {
+                pay[j] = 0 ;
+                due[j] = 0 ;
+                bal[j] = 0 ;
+        }
+     }
+    
+   double BALDEC2 = 0 ;
+    if ( buckets < 3) {
+         BALDEC2 = 0 ;
+    } else if ( bal[0] < bal[1] && bal[1] < bal[2] ){
+        BALDEC2 = 1 ;
+    } else {
+        BALDEC2 = 0 ;
+    }
+    // System.out.println("buckets" + buckets );
+     
+    int months_del [] = new int[14] ;
+    
+    
+    String PAYMENT_PATTERN = chdData.getCHDHD_PAYMENT_HISTORY().trim();
+    int size = PAYMENT_PATTERN.length() ; 
+    //System.out.println("PAYMENT_PATTERN" + PAYMENT_PATTERN );
+    //System.out.println("PAYMENT_PATTERN" + size );
+    char[] arr = PAYMENT_PATTERN.toCharArray();
+    for ( int s = 0 ; s < size ; s++ ) {
+        
+        String stick = PAYMENT_PATTERN.substring( s, size- (size-(s+1)) );
+        
+        if ( "Z,%".contains(stick) ){
+            months_del[s] = -1;
+        } else if ("0,A,I,O,Q,#,+,-".contains(stick) ) {
+            months_del[s] = 0;
+        } else if ( "1,B,J,R".contains( stick ) ) {
+            months_del[s] = 1;
+        } else if (  "2,C,K,S".contains( stick ) ){
+            months_del[s] = 2;
+        } else if ( "3,D,L,T".contains( stick) ) { 
+            months_del[s] = 3;
+        } else if ( "4,E,M,U".contains( stick ) ) {
+            months_del[s] = 4;
+        } else if ( "5,F,N,V".contains( stick ) ) {
+            months_del[s] = 5;
+        } else if ( "6,G,O,W".contains( stick) ) { 
+            months_del[s] = 6;
+        } else if ( "7,H,P,X".contains( stick) ) {
+            months_del[s] = 7;
+        } else {
+            months_del[s] = 0;
+        }
+        
+        
+    }
+    
+    if ( buckets <13 ){
+        for ( int bkts = buckets + 1; bkts <= 13;  bkts++ ) {
+            months_del[bkts] = 0;
+        }
+    }
+    
+    derviedVariables.setMonths_del(months_del);
+    
+    int DELMAX3 = Math.max( Math.max( months_del[1], months_del[2]), months_del[3] );
+    double varrt[]  = derviedVariables.getVarrt() ;
+    double pay_cnt = 0;
+    double totl_pay_rate = 0;
+    //clarification
+    for ( int ibal = 1; ibal <= 6; ibal++ ) {
+        double tmp_balance = bal[ibal+1];
+        if ( tmp_balance <= 1) {
+            varrt[ibal]=0;
+        }else{
+            varrt[ibal] = pay[ibal] / tmp_balance;
+            totl_pay_rate = totl_pay_rate + varrt[ibal];
+            pay_cnt = pay_cnt + 1;
+          }
+     
+     }  
+     derviedVariables.setVarrt(varrt);
+    if ( pay_cnt == 0 ){
+        pay_cnt = 0;
+    }
+    double MEANPAY = totl_pay_rate /  pay_cnt;
+    derviedVariables.setMEANPAY(MEANPAY);
+    
+    int Mode6 = 0;
+    for (int modi = 1; modi <= 6 ;  modi++ ){
+        if ( months_del[modi] >= 1 ){
+            Mode6 = Mode6 + 1;
+        }
+    }
+
+    int numvar = 0;
+    for  ( int duei = 1 ;  duei <= 6 ; duei++ ){
+        if ( due [duei + 1 ] > 0){
+            if (pay[duei] <= 0) {
+                numvar = numvar + 1;
+            }
+        }
+    }
+	derviedVariables.setMode6(Mode6);
+	derviedVariables.setNumvar(numvar);
+	
+    double ACCTBAL =  chdData.getCHD_CURRENT_BALANCE();
+    //System.out.println("ACCTBAL" + ACCTBAL);
+    derviedVariables.setACCTBAL(ACCTBAL);
+    double Balsqrt = 0;
+    if ( ACCTBAL >= 0) {
+        Balsqrt = Math.sqrt(ACCTBAL);
+    }else{
+        Balsqrt = 0;
+    }
+    // System.out.println("final Balsqrt  " + Balsqrt);
+    derviedVariables.setBalsqrt(Balsqrt);
+
+    int DELQDAYS = chdData.getCHD_DEL_NO_DAYS();
+    derviedVariables.setDELQDAYS(DELQDAYS);
+}
+
+function  transformCBAllotherVariables(DerviedVariables derviedVariables){
+
+    CBVariables cbVariables = derviedVariables.getCbVariables();
+    
+    //Integer obj = new Integer ( cbVariables.getTTR001() );
+    //double ttr001 = obj.doubleValue();
+    double ttr001 = derviedVariables.getTs0_ATTR001();
+    double ATTR001_MISS0 = ( ttr001 == 0 )  ?  0 : ttr001 ;
+   
+    derviedVariables.setATTR001_MISS0(ATTR001_MISS0);
+    
+    int CB0_ATTR020 =  cbVariables.getATTR020() ;
+    int CB0_ATTR008 = cbVariables.getATTR008() ;
+    
+   // System.out.println("CB0_ATTR020 "  + CB0_ATTR020) ;
+   // System.out.println("CB0_ATTR008 "  + CB0_ATTR008) ;
+    
+    int ADV013val = CB0_ATTR020 == 0  || CB0_ATTR008 == 0 ? 0 : ( CB0_ATTR020 / CB0_ATTR008 ) ;
+    Integer ADV013value =  new Integer (ADV013val ) ;
+    double ADV013 = ADV013value.doubleValue() ;
+    derviedVariables.setADV013(ADV013) ;
+    
+   // System.out.println("ADV013 "  + ADV013) ;
+    
+    int CB0_ATTR025 =  cbVariables.getATTR025() ;
+    int CB0_ATTR002 = cbVariables.getATTR002() ;
+    
+   // System.out.println("CB0_ATTR025 "  + CB0_ATTR025) ;
+   // System.out.println("CB0_ATTR002 "  + CB0_ATTR002) ;
+    
+    int ADV027val = CB0_ATTR025 == 0 || CB0_ATTR002 == 0 ? 0 : CB0_ATTR025 / CB0_ATTR002 ;
+    
+    Integer ADV027value = new Integer (ADV027val ) ;
+    
+    double ADV027 = ADV027value.doubleValue() ;
+    
+    derviedVariables.setADV027(ADV027);
+    
+    int CB0_ATTR021  = cbVariables.getATTR021() ;
+    int CB0_ATTR023  = cbVariables.getATTR023() ;
+    int CB0_ATTR024  = cbVariables.getATTR024() ;
+    int ADV029Val =  CB0_ATTR021 + CB0_ATTR023 + CB0_ATTR024 ;
+    Integer ADV029value = new Integer ( ADV029Val ) ;
+    
+    double ADV029 = ADV029value.doubleValue() ;
+    derviedVariables.setADV029(ADV029);
+    
+    int CB0_ATTR065 = cbVariables.getATTR065() ;
+    int CB0_ATTR066 = cbVariables.getATTR066() ;
+    /*int ADV124Val = 0;
+   
+   if ( CB0_ATTR065 == 0){
+    	CB0_ATTR065 = 0;
+    }else{
+    	ADV124Val = CB0_ATTR065 / CB0_ATTR066 
+    }*/
+    int ADV124Val = ( CB0_ATTR065 == 0 || CB0_ATTR066 == 0 ? 0 : ( CB0_ATTR065 / CB0_ATTR066 ) ) ;
+   
+    //System.out.println("ADV124Val" + ADV124Val);
+    
+    Integer ADV124value = new Integer (ADV124Val );
+    double ADV124 = ADV124value.doubleValue();
+    derviedVariables.setADV124(ADV124);
+    
+    double ts0_ATTR107val = derviedVariables.getTs0_ATTR107();
+    double ts0_ATTR001 = derviedVariables.getTs0_ATTR001();
+    
+    int intvaleATTR003 = cbVariables.getATTR003();
+    Integer integervaleATTR003 = new Integer(intvaleATTR003);
+    double CB0_ATTR003 = integervaleATTR003.doubleValue();
+    
+    Integer CB0_ATTR002val = new Integer(CB0_ATTR002);
+    double CB0_ATTR002value  = CB0_ATTR002val.doubleValue();
+   
+    double ADV221 = ts0_ATTR107val == 0 || CB0_ATTR002value == 0 ? 0 : ( ts0_ATTR107val / CB0_ATTR002value ) ;
+    
+    //System.out.println("ADV221" + ADV221);
+    
+    derviedVariables.setADV221(ADV221) ;
+     
+    double ADV902 =  ( ts0_ATTR001 == 0  ?  0 :  ( ( ts0_ATTR001 - CB0_ATTR003 )  / ts0_ATTR001 )  ) ;
+    
+    derviedVariables.setADV902( ADV902 ) ;
+	
+	int[] cb_ts  = derviedVariables.getCb_ts() ;
+	int dec5 = ( cb_ts[4]<cb_ts[5] ) ? 1 : 0 ;
+    int dec4 = ( cb_ts[3]<cb_ts[4] ) ? 1 : 0 ;
+    int dec3 = ( cb_ts[2]<cb_ts[3] ) ? 1 : 0 ;
+    int dec2 = ( cb_ts[1]<cb_ts[2] ) ? 1 : 0 ;
+    int dec1 = ( cb_ts[0]<cb_ts[1] ) ? 1 : 0 ;
+    
+    Integer dec5val = new Integer(dec5);
+    double dec5value = dec5val.doubleValue();
+    derviedVariables.setDec5(dec5value);
+    
+    Integer dec4val = new Integer(dec4);
+    double dec4value = dec4val.doubleValue();
+    derviedVariables.setDec4(dec4value);
+    
+    
+    Integer dec3val = new Integer(dec3);
+    double dec3value = dec3val.doubleValue();
+    derviedVariables.setDec3(dec3value);
+    
+    
+    Integer dec2val = new Integer(dec2);
+    double dec2value = dec2val.doubleValue();
+    derviedVariables.setDec2(dec2value);
+    
+    Integer dec1val = new Integer(dec1);
+    double dec1value = dec1val.doubleValue();
+    derviedVariables.setDec1(dec1value);
+    
+    double dec = dec1value+dec2value+dec3value+dec4value+dec5value ;
+    derviedVariables.setDec(dec);
+    //System.out.println("dec "  + dec) ;
+    double pctdec_ATTR013 = ( dec * 100 ) / 5 ;
+    derviedVariables.setPctdec_ATTR013(pctdec_ATTR013);
+    
+    double ts0_ATTR107 = derviedVariables.getTs0_ATTR107();
+    double ts0_ATTR116 = derviedVariables.getTs0_ATTR116();
+    
+    double rat_1_ATTR107_ATTR001 = (ts0_ATTR107 * 100.0) / ATTR001_MISS0 ;
+	derviedVariables.setRat_1_ATTR107_ATTR001(rat_1_ATTR107_ATTR001);
+    
+    double rat_1_ATTR116_ATTR001=  (ts0_ATTR116 * 100.0 / ATTR001_MISS0 ) ;
+    derviedVariables.setRat_1_ATTR116_ATTR001(rat_1_ATTR116_ATTR001);
+    
+    double cmpATTR107 = ts0_ATTR107 == 0 ?  -9 : ts0_ATTR107 ; 
+    derviedVariables.setCmpATTR107(cmpATTR107); 
+    
+}
+
+function transformFlapdDeriVariable(  DerviedVariables derviedVariables , BalanceFLAP flap ){
+	
+	//System.out.println("transformFlapdDeriVariable 1");
+	int FLAP_WITHPAY_PLANS = derviedVariables.getFLAP_WITHPAY_PLANS();
+    double FLAP_TOTAL_DEF_BAL = derviedVariables.getFLAP_TOTAL_DEF_BAL();
+    double FLAP_TOTAL_HIST_PURCH = derviedVariables.getFLAP_TOTAL_DEF_BAL() ;
+    double FLAP_TOT_DEF_BAL_TO_TOT_HIST_PURCH = derviedVariables.getFLAP_TOTAL_DEF_BAL() ;
+    
+	int flap_dtexpire = 0 ;
+    int flap_dtbegint = 0 ;
+    int flap_dtbegpay = 0 ;
+    int flap_fl_cshopt_end = 0 ;
+    int flap_r2r_dt = 0 ;
+    int flap_r2r_cd = 0 ;
+    int flap_unexpired_plans = 0 ;
+    
+    flap_unexpired_plans = derviedVariables.getFlap_unexpired_plans() ;
+    
+	flap_r2r_cd = flap.getFLAP_RTRN_TO_RVLV_CD_NR();
+    flap_r2r_dt = flap.getR2R_DT();
+    flap_dtbegint = flap.getDTBEGINT();
+    flap_dtbegpay = flap.getDTBEGPAY();
+    flap_fl_cshopt_end = flap.getFL_CSHOPT_END();
+	//System.out.println("transformFlapdDeriVariable 2");
+    //flap_dtbegint = FIXDATE(flap_dtbegint);
+    //flap_dtbegpay = FIXDATE(flap_dtbegpay);
+    //flap_fl_cshopt_end = FIXDATE(flap_fl_cshopt_end);
+    //flap_r2r_dt = FIXDATE(flap_r2r_dt);
+
+     flap_dtexpire = Math.max(flap_dtbegint, Math.max(flap_dtbegpay, flap_fl_cshopt_end) );
+     //System.out.println("transformFlapdDeriVariable 3");
+	 if( flap_r2r_cd != 0 && flap_r2r_dt > 0 ) {
+            flap_dtexpire = Math.min( flap_dtexpire, flap_r2r_dt ) ;
+     }
+
+      if ( flap_dtexpire >= 0 ){
+     	flap_dtexpire =  flap_dtexpire ;
+     }else{
+     	flap_dtexpire = 0 ;
+     }
+     //System.out.println("transformFlapdDeriVariable 4");
+     
+      String FLAP_PROMOTIONAL_ID = flap.getFLAP_PROMOTIONAL_ID() ;
+      //System.out.println("promid" + FLAP_PROMOTIONAL_ID);
+      //System.out.println("transformFlapdDeriVariable 5");
+      String promId = FLAP_PROMOTIONAL_ID != null ? FLAP_PROMOTIONAL_ID.substring(5,6) : "" ;
+     
+   	//System.out.println("transformFlapdDeriVariable 55");
+     double FLAP_CRRN_BLNC_AM = flap.getFLAP_CRRN_BLNC_AM() ;
+     
+     String PRIN = flap.getPRIN();
+    //System.out.println("PRIN" + PRIN);
+    //System.out.println("transformFlapdDeriVariable 6");
+     String prin = PRIN != null ? PRIN.substring(0,1) : "";
+     
+     if (  "N,M,P".contains( promId ) &&  
+     			FLAP_CRRN_BLNC_AM > 0 && !"9".equals(prin)  ){
+     
+     	flap_unexpired_plans = flap_unexpired_plans + 1 ;
+     	
+     	derviedVariables.setFlap_unexpired_plans(flap_unexpired_plans);
+     	if( "N".equals(promId) ) {
+     		FLAP_WITHPAY_PLANS = FLAP_WITHPAY_PLANS + 1 ;
+     		derviedVariables.setFLAP_WITHPAY_PLANS(FLAP_WITHPAY_PLANS);
+     	}
+     	//double FLAP_CRRN_BLNC_AM = flap.getFLAP_CRRN_BLNC_AM():
+     	double FLAP_HIST_PURCHASES = flap.getFLAP_HIST_PURCHASES();
+     	
+     	FLAP_TOTAL_DEF_BAL = FLAP_TOTAL_DEF_BAL + FLAP_CRRN_BLNC_AM ;
+     	derviedVariables.setFLAP_TOTAL_DEF_BAL(FLAP_TOTAL_DEF_BAL);
+     	
+        FLAP_TOTAL_HIST_PURCH = FLAP_TOTAL_HIST_PURCH + FLAP_HIST_PURCHASES;
+        derviedVariables.setFLAP_TOTAL_HIST_PURCH(FLAP_TOTAL_HIST_PURCH);
+     }
+      
+    
+}
+function finalDerivedVariables(  DerviedVariables derviedVariables ){
+	
+	int flap_unexpired_plans = derviedVariables.getFlap_unexpired_plans();
+	double FLAP_TOTAL_HIST_PURCH = derviedVariables.getFLAP_TOTAL_HIST_PURCH();
+	double FLAP_TOTAL_DEF_BAL = derviedVariables.getFLAP_TOTAL_DEF_BAL();
+	double FLAP_TOT_DEF_BAL_TO_TOT_HIST_PURCH = derviedVariables.getFLAP_TOT_DEF_BAL_TO_TOT_HIST_PURCH();
+	
+	if( flap_unexpired_plans != 0 ){
+        if( FLAP_TOTAL_HIST_PURCH != 0 ){
+            FLAP_TOT_DEF_BAL_TO_TOT_HIST_PURCH = FLAP_TOTAL_DEF_BAL / FLAP_TOTAL_HIST_PURCH ;
+            derviedVariables.setFLAP_TOT_DEF_BAL_TO_TOT_HIST_PURCH(FLAP_TOT_DEF_BAL_TO_TOT_HIST_PURCH);
+       }
+   }
+   
+   double def_bal_to_hist_purch = FLAP_TOT_DEF_BAL_TO_TOT_HIST_PURCH;
+   double total_def_bal = derviedVariables.getFLAP_TOTAL_DEF_BAL();
+   double Pct100Def = 0;
+   double ACCTBAL = derviedVariables.getACCTBAL();
+    if ( total_def_bal == 0){
+        Pct100Def = 0;
+        
+    } else {
+        /* round 99.5 -> 100, 99.499 -> 99 */
+        if (ACCTBAL != 0){
+           double x = (total_def_bal / ACCTBAL) * 100.0 ;
+           if (x == 0 ){
+                Pct100Def = 0;
+            } else if ( x >= 100 ){
+                Pct100Def = 1;
+            }else{
+                Pct100Def = 0;
+            }
+        }else{
+            Pct100Def = 0;
+        }
+    }
+    
+	List<ScoreFormula> scoreFrmulaVariable = new  ArrayList<ScoreFormula>();   
+	 
+    double  ADV124 = derviedVariables.getADV124();
+    
+    ScoreFormula  scoreFormulaADV124 = new ScoreFormula();
+    scoreFormulaADV124.setKey("ADV124");
+    scoreFormulaADV124.setValue(ADV124 );
+    scoreFrmulaVariable.add(scoreFormulaADV124);
+    
+    double ADV221 = derviedVariables.getADV221();
+    
+    ScoreFormula  scoreFormulaADV221 = new ScoreFormula();
+    scoreFormulaADV221.setKey("ADV221");
+    scoreFormulaADV221.setValue(ADV221 );
+    scoreFrmulaVariable.add(scoreFormulaADV221);
+    
+    double Balsqrt = derviedVariables.getBalsqrt();
+    ScoreFormula  scoreFormulaBalsqrt = new ScoreFormula();
+    scoreFormulaBalsqrt.setKey("Balsqrt");
+    scoreFormulaBalsqrt.setValue(Balsqrt );
+    scoreFrmulaVariable.add(scoreFormulaBalsqrt);
+    
+    double CB0_ATTR012 = derviedVariables.getCB0_ATTR012();
+    ScoreFormula  scoreFormulaCB0_ATTR012 = new ScoreFormula();
+    scoreFormulaCB0_ATTR012.setKey("CB0_ATTR012");
+    scoreFormulaCB0_ATTR012.setValue(CB0_ATTR012 );
+    scoreFrmulaVariable.add(scoreFormulaCB0_ATTR012);
+    
+    System.out.println("Formula variable - > CB0_ATTR012 - > " + CB0_ATTR012);
+    
+    double CB0_ATTR110 = derviedVariables.getCB0_ATTR110();
+    ScoreFormula  scoreFormulaCB0_ATTR110 = new ScoreFormula();
+    scoreFormulaCB0_ATTR110.setKey("CB0_ATTR110");
+    scoreFormulaCB0_ATTR110.setValue(CB0_ATTR110 );
+    scoreFrmulaVariable.add(scoreFormulaCB0_ATTR110);
+    System.out.println("Formula variable - > CB0_ATTR110 - > "  + CB0_ATTR110);
+    
+    double CB0_ATTR017 = derviedVariables.getCB0_ATTR017();
+    ScoreFormula  ScoreFormulaCB0_ATTR017 = new ScoreFormula();
+    ScoreFormulaCB0_ATTR017.setKey("CB0_ATTR017");
+    ScoreFormulaCB0_ATTR017.setValue(CB0_ATTR017 );
+    scoreFrmulaVariable.add(ScoreFormulaCB0_ATTR017);
+    
+    System.out.println("Formula variable - > CB0_ATTR017 - > "  + CB0_ATTR017);
+    
+    
+    double CB0_ATTR306 = derviedVariables.getCB0_ATTR306();
+    ScoreFormula  scoreFormulaCB0_ATTR306 = new ScoreFormula();
+    scoreFormulaCB0_ATTR306.setKey("CB0_ATTR306");
+    scoreFormulaCB0_ATTR306.setValue(CB0_ATTR306 );
+    
+    scoreFrmulaVariable.add(scoreFormulaCB0_ATTR306);
+    
+    System.out.println("Formula variable - > CB0_ATTR306 - > "  + CB0_ATTR306);
+    
+    double CB0_ATTR013 = derviedVariables.getPctdec_ATTR013();
+    ScoreFormula  scoreFormulaCB0_ATTR013 = new ScoreFormula();
+    scoreFormulaCB0_ATTR013.setKey("CB0_ATTR013");
+    scoreFormulaCB0_ATTR013.setValue(CB0_ATTR013 );
+    scoreFrmulaVariable.add(scoreFormulaCB0_ATTR013);
+   
+    int numvarValue =  derviedVariables.getNumvar();
+    Integer num = new Integer ( numvarValue ) ;
+    double numvar = num.doubleValue() ;
+    ScoreFormula  scoreFormulanumvar = new ScoreFormula();
+    scoreFormulanumvar.setKey("numvar");
+    scoreFormulanumvar.setValue(numvar );
+ 	scoreFrmulaVariable.add(scoreFormulanumvar);
+ 	
+ 	System.out.println("Formula variable - > numvar - >" + numvar);
+ 	
+    double varrt[]  = derviedVariables.getVarrt() ;
+    double varrtVAle = varrt[0];
+    ScoreFormula  scoreFormulavarrt = new ScoreFormula();
+    scoreFormulavarrt.setKey("varrt");
+    scoreFormulavarrt.setValue(varrtVAle );
+    System.out.println("Formula variable - > varrt - >" + varrtVAle);
+    scoreFrmulaVariable.add(scoreFormulavarrt);
+	derviedVariables.setScoreFrmulaVariable(scoreFrmulaVariable);   
+   
+}

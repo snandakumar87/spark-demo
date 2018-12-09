@@ -1,0 +1,12 @@
+package com.spark.scorecard;
+
+import java.lang.Number;
+
+rule "calculate segment rule4"
+	dialect "mvel"
+	when
+		>CreditdataAggregation( acctID : chd.ACCOUNT_ID)
+		>derVar : DerviedVariables( ACCOUNT_ID == acctID , DELQDAYS < 45 , CASHUSER < 1 , pct100Def < 1.0 && FLAP_WITHPAY_PLANS < 1 && cmpATTR107 >= 1.0 )
+	then
+		>derVar.setSegment_no( 51 );
+end

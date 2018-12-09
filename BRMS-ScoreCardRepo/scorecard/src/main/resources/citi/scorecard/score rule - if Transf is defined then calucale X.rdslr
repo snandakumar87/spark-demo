@@ -1,0 +1,21 @@
+package citi.scorecard;
+
+import java.lang.Number;
+import java.lang.Number;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.lang.Math;
+
+rule "score rule - if Transf is defined then calucale X"
+	dialect "mvel"
+	salience -20
+	ruleflow-group "xvalue"
+	when
+		>sc : ScoreCard( semgtId : segmentId)
+		>scData : ScoreCardData( segmentId == semgtId , transx != null , formulaNameFromScordCard : formula)
+		>ScoreFormula( key == formulaNameFromScordCard , value > 0.0 ) from sc.params
+	then
+		apply Scoring Transformation for the given formula value of Transx
+end

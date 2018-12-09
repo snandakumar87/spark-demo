@@ -1,0 +1,30 @@
+package com.spark.scorecard;
+
+import java.lang.Number;
+import com.spark.scorecard.BalanceFLAP;
+import com.spark.scorecard.CardholderMasterCHD;
+import com.spark.scorecard.CreditBureautimeSeriesCB;
+import com.spark.scorecard.CreditdataAggregation;
+import com.spark.scorecard.DerviedVariables;
+import com.spark.scorecard.ScoreFormula;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.lang.Math;
+import java.lang.Integer;
+import java.lang.String;
+
+rule "validate ATTR derived varible"
+	dialect "mvel"
+	salience 100
+	when
+		>creditdataAggregation : CreditdataAggregation( )
+		>cb : CreditBureautimeSeriesCB( ) from creditdataAggregation.cb
+		>cbAttr : String( ) from creditdataAggregation.cbAttr
+		>CBAttrVariable( key == cbAttr , attValue : value != null && value != "" ) from cb.cbAttr
+	then
+		>transformCBAttr(creditdataAggregation.derivedVariables,cbAttr,attValue);
+end

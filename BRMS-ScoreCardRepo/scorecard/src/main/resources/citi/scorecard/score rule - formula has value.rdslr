@@ -1,0 +1,19 @@
+package citi.scorecard;
+
+import java.lang.Number;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.lang.Math;
+
+rule "score rule - formula has value"
+	dialect "mvel"
+	ruleflow-group "xvalue"
+	when
+		>sc : ScoreCard( semgtId : segmentId)
+		>scData : ScoreCardData( segmentId == semgtId , formulaNameFromScordCard : formula, minvalue : minValue, maxvalue : maxValue)
+		>ScoreFormula( key == formulaNameFromScordCard , value >= minvalue && value <= maxvalue , xvalue : value) from sc.params
+	then
+		apply Scoring Transformation for the given formula that has value
+end
